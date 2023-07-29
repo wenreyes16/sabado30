@@ -17,7 +17,7 @@ export class User {
     @Column({type:'varchar', nullable:false})
     sexo: string;
 
-    @Column({type:'boolean', nullable:true})
+    @Column({type:'boolean', default:true})
     active: boolean;
 
 
