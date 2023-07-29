@@ -1,4 +1,4 @@
-import { IsBoolean, IsNotEmpty, IsNumber, IsString, MaxLength } from "class-validator";
+import { IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString, MaxLength } from "class-validator";
 
 export class CreateProductDto{
     @IsNotEmpty()
@@ -23,7 +23,7 @@ export class CreateProductDto{
     @IsString()
     sexo:string;
 
-    @IsNotEmpty()
+    @IsOptional()
     @IsBoolean()
     active:boolean;
 
