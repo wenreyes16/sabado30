@@ -1,30 +1,36 @@
-import { IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString, MaxLength } from "class-validator";
+import {
+  IsBoolean,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  MaxLength,
+} from 'class-validator';
 
-export class CreateProductDto{
-    @IsNotEmpty()
-    @IsNumber()
-    id:number;
+export class CreateUserDto {
+  @IsNotEmpty()
+  @IsNumber()
+  id: number;
 
-    @IsString()
-    @IsNotEmpty()
-    @MaxLength(100)
-    name:string;
-    
-    @IsString()
-    @IsNotEmpty()
-    @MaxLength(50)
-    password:string;
-    
-    @IsNotEmpty()
-    @IsString()
-    email:string;
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(100)
+  name: string;
 
-    @IsNotEmpty()
-    @IsString()
-    sexo:string;
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(30)
+  password: string;
 
-    @IsOptional()
-    @IsBoolean()
-    active:boolean;
+  @IsString()
+  @IsNotEmpty()
+  email: string;
 
+  @IsString()
+  @IsNotEmpty()
+  sexo: string;
+
+  @IsBoolean()
+  @IsOptional()
+  active: boolean;
 }
