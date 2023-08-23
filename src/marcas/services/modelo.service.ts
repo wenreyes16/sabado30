@@ -18,24 +18,31 @@ export class ModeloService{
         return modelo;
     }
 
-    //Encontrar una marca
+
     findOne(id: number){
-        return this.modeloRepo.findOneBy({id})
-    }
-    //mostrar todas las marcas
+        return this.modeloRepo.findOne({
+            where: {id},
+            relations: {
+               marca: true,
+               autor: true
+            }
+       
+        });
+   }
+  
     findAll(){
         return   this.modeloRepo.find({
             order: {id: 'ASC'},
         });
     }
 
-    //eliminar una marca
+
     async remove(id:number){
         const modelo =await this.findOne(id);
         await this.modeloRepo.remove(modelo);
     }
 
-    //actualizar una marca
+
     async update(id: number, cambios: CreateModeloDto){
         const oldModelo = await this.findOne(id);
         const updateModelo = await this.modeloRepo.merge(oldModelo, cambios);
