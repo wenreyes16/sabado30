@@ -33,6 +33,10 @@ export class ModeloService{
     findAll(){
         return   this.modeloRepo.find({
             order: {id: 'ASC'},
+            relations: {
+                marca: true,
+                autor: true
+             }
         });
     }
 

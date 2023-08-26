@@ -20,7 +20,8 @@ export class ProductsService{
         return this.productRepo.findOne({
             where:{id},
             relations:{
-                autor:true
+                autor:true,
+                categoria:true
             }
         });
     }
@@ -28,6 +29,10 @@ export class ProductsService{
     findAll(){
         return   this.productRepo.find({
             order: {id: 'ASC'},
+                relations:{
+                autor:true,
+                categoria:true
+            }
         });
     }
     //eliminar un registro
