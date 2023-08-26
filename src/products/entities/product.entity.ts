@@ -30,8 +30,6 @@ export class Product {
 
   @Column({ type: 'int4', nullable: false })
     categoria_id: number;
-
-
   @ManyToOne(()=> User)
   @JoinColumn({
     name:'user_id',
@@ -43,7 +41,7 @@ export class Product {
 
   @ManyToOne(()=> Category)
   @JoinColumn({
-    name:'category_id',
+    name:'categoria_id',
     referencedColumnName:'id'
 
   })
