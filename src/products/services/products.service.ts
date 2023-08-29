@@ -21,7 +21,8 @@ export class ProductsService{
             where:{id},
             relations:{
                 autor:true,
-                categoria:true
+                categoria:true,
+                proveedor:true
             }
         });
     }
@@ -31,7 +32,8 @@ export class ProductsService{
             order: {id: 'ASC'},
                 relations:{
                 autor:true,
-                categoria:true
+                categoria:true,
+                proveedor:true
             }
         });
     }
