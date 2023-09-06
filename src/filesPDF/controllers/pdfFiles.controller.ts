@@ -3,7 +3,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { fileNamer } from 'src/helpers/fileNamer.helper';
 import { PdfFilesService } from '../services/pdfFiles.services';
-import { fileFilter } from 'src/helpers/pdfFileFilter.helper';
+import { fileFilter } from 'src/helpers/filterPdf.helper';
 
 @Controller('pdf')
 export class PdfFilesController {
