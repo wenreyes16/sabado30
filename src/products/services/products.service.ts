@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from '../entities/product.entity';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { CreateProductDto } from '../dto/product.dto';
 import { ProductImage } from '../entities/product-image.entity';
 @Injectable()
@@ -11,7 +11,9 @@ export class ProductsService{
         private productRepo: Repository<Product>,
 
         @InjectRepository(ProductImage)
-        private productImageRepo: Repository<ProductImage>
+        private productImageRepo: Repository<ProductImage>,
+
+        private readonly dataSource: DataSource,
     ){}
 
     // async create(createProductDto:CreateProductDto){
@@ -49,7 +51,8 @@ export class ProductsService{
                 relations:{
                 autor:true,
                 categoria:true,
-                proveedor:true
+                proveedor:true,
+                images:true
             }
         });
     }
@@ -68,12 +71,32 @@ export class ProductsService{
     // }
 
     async update(id: number, productDto: CreateProductDto){
+        const {images, ...updateAll} = productDto
         const product = await this.productRepo.preload({
             id:id,
-            ... productDto,
-            images:[],
+            ... updateAll
         });
-        await this.productRepo.save(product)
+
+        const queryRunner = this.dataSource.createQueryRunner();
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
+
+        if(images){
+            await queryRunner.manager.delete(ProductImage, {product: {id}});
+
+            product.images = images.map((image)=>
+                this.productImageRepo.create({url: image}),
+            )
+
+        }else{
+            product.images =await this.productImageRepo.findBy({ product: {id}});
+        }
+
+        await queryRunner.manager.save(product);
+
+        await queryRunner.commitTransaction();
+        await queryRunner.release();
+
         return product;
     }
 
