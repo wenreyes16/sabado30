@@ -8,8 +8,7 @@ export const fileFilter = (
 
     const fileExtension= file.mimetype.split('/')[1];
     const validExtension = ['jpg', 'png','JPG', 'jpeg', 'PNG'];
-    
-    // comprobar que el archivo tenga una extension valida...
+
     if (validExtension.includes(fileExtension)){
         return  callback(null , true);
     }

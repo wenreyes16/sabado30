@@ -28,8 +28,6 @@ export class UsersService{
         return user;
     }
 
-
-    //Encontrar un user
     findOne(id: number){
         return this.userRepo.findOne({  
             where:{id},
@@ -37,7 +35,7 @@ export class UsersService{
             images:true
         }});
     }
-    //mostrar todos los usuarios
+    
     findAll(){
         return   this.userRepo.find({
             order: {id: 'ASC'},
@@ -45,19 +43,12 @@ export class UsersService{
             images:true}
         });
     }
-    //eliminar un usuario
     async remove(id:number){
         const user =await this.findOne(id);
         await this.userRepo.remove(user);
         return 'Usuario eliminado';
     }
 
-    //actualizar un usuario
-    // async update(id: number, cambios: CreateUserDto){
-    //     const oldUser = await this.findOne(id);
-    //     const updateUser = await this.userRepo.merge(oldUser, cambios);
-    //     return this.userRepo.save(updateUser);
-    // }
 
     async update(id: number, userDto: CreateUserDto){
         const {images, ...updateAll} = userDto
